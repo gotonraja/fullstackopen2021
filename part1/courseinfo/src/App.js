@@ -31,7 +31,9 @@ const Total = (props) => {
   console.log('Total ...')
   console.log(props)
   return (
-    <p>Number of exercise {props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises  } </p>
+    <p>
+      Number of exercise {props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises} 
+    </p>
   )
   
 }
