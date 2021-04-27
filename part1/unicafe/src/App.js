@@ -61,6 +61,7 @@ const Statistics = (props) =>
         <Total values={props.values}></Total>
         <Average values={props.values}></Average>
         <Positive values={props.values}></Positive>
+
         </table>
       </div>
     )
