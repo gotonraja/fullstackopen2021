@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 
 
-const Anecdotes = ({anecdotes, selected}) => {
-  console.log(anecdotes)
-
+const Anecdotes = ({anecdotes, selected, points}) => {
+  // console.log(anecdotes)
+  // console.log(selected)
+  // console.log(points)
+  
   return (
-    <p>{anecdotes[selected]}</p>
+    <div>
+      <h2>Anecdote of the day </h2>
+      <p>{anecdotes[selected]}</p>
+      <p>It has {points[selected]} votes</p>
+    </div>
   )
 
 }
@@ -16,7 +22,29 @@ const Button = ({handleClick, text}) => {
       {text}
     </button>
   )
+}
 
+const BestAnecdote = ({anecdotes, points}) => {
+  let maxPoints = 0
+  let maxPointsIdx = 0
+  
+  for (let index = 0; index < points.length; index++) {
+    if (points[index] > maxPoints) {
+      maxPoints = points[index]
+      maxPointsIdx = index 
+    }
+  }
+
+  console.log('Max = ' + maxPoints + ' idx = ' + maxPointsIdx)
+
+  return (
+    <div>
+      <h2>Anecdote with most votes </h2>
+      <p>{anecdotes[maxPointsIdx]}</p>
+      <p>It has {points[maxPointsIdx]} votes </p>
+    </div>
+  )
+  
 }
 
 const App = () => {
@@ -30,16 +58,28 @@ const App = () => {
   ]
   
   const [selected, setSelected] = useState(0)
-  const randomSelected = () => setSelected(Math.floor(Math.random() * 6))  
-  const points = new Uint32Array(6)
+  const [points, setPoints] = useState(new Uint32Array(6))
+
+  const randomSelected = () => setSelected(Math.floor(Math.random() * 6))
+  const updatePoints = () => {
+    // Copy old point and update it
+    const copy = [...points]
+    copy[selected] += 1
+    setPoints(copy)
+  }
 
   return (
     <div>
-      <Anecdotes anecdotes={anecdotes} selected={selected}></Anecdotes>
+      <Anecdotes anecdotes={anecdotes} selected={selected} points={points}></Anecdotes>
+      <Button
+        handleClick={updatePoints}
+        text="Vote">
+        </Button>
       <Button 
         handleClick={randomSelected} 
         text='Next Anecdote'>
       </Button> 
+      <BestAnecdote anecdotes={anecdotes} points={points}></BestAnecdote>
     </div>
   )
 }
