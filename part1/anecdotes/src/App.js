@@ -2,10 +2,7 @@ import React, { useState } from 'react'
 
 
 const Anecdotes = ({anecdotes, selected, points}) => {
-  // console.log(anecdotes)
-  // console.log(selected)
-  // console.log(points)
-  
+
   return (
     <div>
       <h2>Anecdote of the day </h2>
@@ -34,8 +31,6 @@ const BestAnecdote = ({anecdotes, points}) => {
       maxPointsIdx = index 
     }
   }
-
-  console.log('Max = ' + maxPoints + ' idx = ' + maxPointsIdx)
 
   return (
     <div>
