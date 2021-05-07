@@ -25,18 +25,18 @@ const Average = (props) => {
   return (
     <tr>
       <td>Average</td>
-      <td>{average}</td>
+      <td>{average.toFixed(2)}</td>
     </tr>
    )
 }
 const Positive = (props) => {
   const total = props.values[0] + props.values[1] + props.values[2]
-  const positive = (props.values[0]/total)
+  const positive = (props.values[0]/total) * 100
   
   return (
     <tr>
       <td>Positive</td>
-      <td>{positive}</td>
+      <td>{Math.round(positive)}% </td>
     </tr>
   )
 }
