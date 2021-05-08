@@ -35,7 +35,7 @@ const Part = ({ part }) => {
   )
 }
 
-const Content = ({course}) => {
+const Content = ({ course }) => {
   return (
     <div>
       {course.parts.map( part => 
