@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import {Persons, Filter, PersonForm} from './components/Person'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Ada Lovelace', number: '39-44-5323523' },
-    { name: 'Dan Abramov', number: '12-43-234345' },
-    { name: 'Mary Poppendieck', number: '39-23-6423122' }
-  ])
-
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newSearchTerm, setNewSearchName] = useState('')
 
+  const hook = () => {
+    console.log('effect')
+    axios
+        .get('http://localhost:3001/persons')
+        .then(response => {
+          console.log('promise fullfiled')
+          setPersons(response.data)
+        })
+  }
 
+  useEffect( hook, [])
+  
   const addPerson = (event) => {
     event.preventDefault()
     console.log('Add name ', event.target)
@@ -29,7 +35,7 @@ const App = () => {
     }
     else {
       alert(`${newName} is already added to phonebook`)
-    }
+    } 
   }
 
   const handleNameChange = (event) => {
@@ -53,7 +59,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h2> Phonebook </h2>
       <Filter 
         searchTerm={newSearchTerm} 
         handleSearch={handleSearchNameChange}/>
@@ -66,7 +72,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
         addPerson={addPerson}/>
       
-      <h2>Numbers</h2>
+      <h2> Numbers </h2>
       <Persons persons={filteredPersons}/>
     </div>
   )

@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Persons = ({persons}) => {
-  console.log('Shesst', persons)
   return(
     <div>
     {persons.map(person =>
