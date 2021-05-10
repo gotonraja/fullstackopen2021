@@ -23,9 +23,11 @@ const ShowCountry = ({ country }) => {
       <h1> {country.name}</h1>
       <p>Capital: {country.capital}</p>
       <p>Population: {country.population}</p>
+      <p>Languages</p>
       <ul>
-      {country.languages.map(language => <li key={country.name}>{language.name}</li>)}    
+      {country.languages.map(language => <li key={language.name}>{language.name}</li>)}
       </ul>
+      <img src={country.flag} alt='Country flag'></img>
     </div>
   )
 }
@@ -42,15 +44,15 @@ const Countries = ({ countries }) => {
   console.log(countries)
   const numOfCountries = countries.length
 
-  if (numOfCountries > 1 && numOfCountries < 10 )
-  return (
-    <div>
-    {countries.map(country =>
-      <Country key={country.name} country={country} />)}
-    </div>
-  )
-  else if ( numOfCountries === 1)
-  {
+  if (numOfCountries > 1 && numOfCountries < 10 ) {
+    return (
+      <div>
+      {countries.map(country =>
+        <Country key={country.name} country={country} />)}
+      </div>
+    )
+  }
+  else if ( numOfCountries === 1) {
     return (
       <div>
         <ShowCountry country={countries[0]}/>
@@ -92,12 +94,13 @@ const App = () => {
   }
 
   useEffect( hook, [])
-  
-  const filteredCountries = countries.filter(country => {
-    if (newSearchTerm !== '') {
-      return (country.name.toLowerCase().indexOf(newSearchTerm.toLowerCase()) !== -1 )
+
+  const filteredCountries = countries.filter(country =>{
+      if (newSearchTerm !== null) {
+        return (country.name.toLowerCase().indexOf(newSearchTerm.toLowerCase()) !== -1 )
+      }
     } 
-  } )
+  )
 
   return (
     <div>
