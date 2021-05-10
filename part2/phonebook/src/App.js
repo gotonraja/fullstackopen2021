@@ -6,7 +6,7 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
-  const [newSearchTerm, setNewSearchName] = useState('')
+  const [newSearchTerm, setNewSearchTerm] = useState('')
 
   const hook = () => {
     console.log('effect')
@@ -18,8 +18,8 @@ const App = () => {
         })
   }
 
-  useEffect( hook, [])
-  
+  useEffect(hook, [])
+
   const addPerson = (event) => {
     event.preventDefault()
     console.log('Add name ', event.target)
@@ -39,19 +39,15 @@ const App = () => {
   }
 
   const handleNameChange = (event) => {
-    console.log('Name', event.target.value)
     setNewName(event.target.value)
   }
 
   const handleNumberChange = (event) => {
-    console.log('Number: ', event.target.value)
-
     setNewNumber(event.target.value)
   }
 
-  const handleSearchNameChange = (event) => {
-    console.log('Search term', event.target.value)
-    setNewSearchName(event.target.value)
+  const handleSearchTermChange = (event) => {
+    setNewSearchTerm(event.target.value)
   }
 
   const filteredPersons = persons.filter(person =>
@@ -62,7 +58,7 @@ const App = () => {
       <h2> Phonebook </h2>
       <Filter 
         searchTerm={newSearchTerm} 
-        handleSearch={handleSearchNameChange}/>
+        handleSearch={handleSearchTermChange}/>
 
       <h2> Add a new person </h2>
       <PersonForm 
