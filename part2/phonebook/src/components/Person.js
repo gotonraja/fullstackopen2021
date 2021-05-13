@@ -1,20 +1,28 @@
 import React from 'react'
 
-const Persons = ({persons}) => {
-  return(
-    <div>
-    {persons.map(person =>
-      <Person key={person.name} person={person} />)}
-    </div>
+const Button = ({handleClick, text}) => {
+  return (
+    <button onClick={handleClick}>
+      {text}
+    </button>
   )
-  
 }
 
-const Person = ({ person }) => {
+const Persons = ({persons , deletePerson}) => {
   return (
     <div>
-      <p>{person.name} {person.number}</p>
+    {persons.map( (person) =>
+      <Person key={person.name} person={person} deletePerson={deletePerson}/> )}
     </div>
+  )
+}
+
+const Person = ({ person, deletePerson }) => {
+  return (
+    <li>
+      {person.name} {person.number}
+      <Button handleClick={() => deletePerson(person.name, person.id)} text='Delete'/> 
+    </li>
   )
 }
 
@@ -24,18 +32,12 @@ const PersonForm = ({name, number, handleNameChange, handleNumberChange, addPers
     <form onSubmit={addPerson}>
       <div>
         name:
-          <input
-          value={name}
-          onChange={handleNameChange} />
+          <input value={name} onChange={handleNameChange} />
       </div>
-
       <div>
         number:
-        <input
-          value={number}
-          onChange={handleNumberChange} />
+          <input value={number} onChange={handleNumberChange} />
       </div>
-
       <div>
         <button type="submit">add</button>
       </div>
@@ -48,11 +50,9 @@ const Filter = ({ searchTerm, handleSearch }) => {
     <form>
     <div>
       Filter shown with:
-        <input
-        value={searchTerm}
-        onChange={handleSearch} />
+        <input value={searchTerm} onChange={handleSearch} />
     </div>
-  </form>
+    </form>
   )
 }
 

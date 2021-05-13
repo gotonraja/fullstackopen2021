@@ -16,6 +16,15 @@ const Filter = ({ text, searchTerm, handleSearch }) => {
   )
 }
 
+const Button = ({ id, handleClick, text}) => {
+  console.log('button clicked')
+  return (
+    <button id={id} onClick={handleClick}>
+      {text}
+    </button>
+  )
+}
+
 const ShowCountry = ({ country }) => {
   console.log(country)
   return (
@@ -32,23 +41,36 @@ const ShowCountry = ({ country }) => {
   )
 }
 
+const handShowCountry = (country) => {
+  console.log("Clicked?" + country.name)
+}
+
 const Country = ({ country }) => {
+  console.log('Country ..')
+  console.log(country)
+
+  const handleClick = () => {
+    console.log('Show ', country.name)
+  }
+
   return (
     <div>
       <p>{country.name}</p>
+      <button id={country.name} onClick={handleClick}>
+        Show
+      </button>
     </div>
   )
 }
 
 const Countries = ({ countries }) => {
-  console.log(countries)
   const numOfCountries = countries.length
 
   if (numOfCountries > 1 && numOfCountries < 10 ) {
     return (
       <div>
       {countries.map(country =>
-        <Country key={country.name} country={country} />)}
+        <Country key={country.name} country={country}/>)}
       </div>
     )
   }
@@ -78,6 +100,7 @@ const Countries = ({ countries }) => {
 const App = () => {
   const [newSearchTerm, setNewSearchTerm] = useState('')
   const [countries, setCountries] = useState([])
+  const [show, setShow] = useState(false)
 
   const handleSearchTermChange = (event) => {
     setNewSearchTerm(event.target.value)
@@ -96,25 +119,26 @@ const App = () => {
   useEffect( hook, [])
 
   const filteredCountries = countries.filter(country =>{
-      if (newSearchTerm !== null) {
+      if (newSearchTerm !== '') {
         return (country.name.toLowerCase().indexOf(newSearchTerm.toLowerCase()) !== -1 )
+      }
+      else
+      {
+        return null
       }
     } 
   )
 
+
+  
   return (
     <div>
       <Filter
       text='Find Countries  '
       searchTerm={newSearchTerm}
       handleSearch={handleSearchTermChange}/>
-    <Countries countries={filteredCountries}/>
+      <Countries countries={filteredCountries}/>
     </div>
-
-    // <div>
-
-    // </div>
-
   );
 }
 
