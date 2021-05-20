@@ -1,0 +1,6 @@
+### Get person with id
+GET http://localhost:3001/api/persons/1
+
+### Get unkonw person
+GET http://localhost:3001/api/persons/100
+

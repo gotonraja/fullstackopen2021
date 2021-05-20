@@ -1,0 +1,6 @@
+### Delete person with id 5
+DELETE http://localhost:3001/api/persons/6
+
+### Check if the person is delete
+GET http://localhost:3001/api/persons
+

@@ -1,0 +1,17 @@
+### Post peroson
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Bob Barley",
+    "number": "44-13123-123"
+}
+
+### Post another peroson
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Albert Einstein",
+    "number": "543-123-53"
+}
