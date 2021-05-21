@@ -1,6 +1,15 @@
 const express = require('express')
+const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 app.use(express.json())
+app.use(cors())
+
+morgan.token('person', function(req, res) {
+  return JSON.stringify(req.body)
+})
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :person'))
 
 let persons = [
   {
@@ -57,13 +66,25 @@ const generateId = () => {
 }
 
 app.post('/api/persons', (request, response) => {
-  console.log('Posting')
   const body = request.body
-  console.log(body)
   
   if (!body.name) {
-    response.status(400).json( {
-      error: 'name'
+    return response.status(400).json({
+      error: 'Name missing'
+    })
+  }
+
+  if (!body.number) {
+    return response.status(400).json({
+      error: 'Number missing'
+    })
+  }
+
+  const exists = persons.find(p => p.name === body.name)
+  
+  if (exists) {
+    return response.status(400).json({
+      error: 'Name must be unique'
     })
   }
 
@@ -72,17 +93,12 @@ app.post('/api/persons', (request, response) => {
     number: body.number,
     id: generateId()
   }
-  console.log('New person')
-  console.log(person)
 
   persons = persons.concat(person)
-  console.log('All persons')
-  console.log(persons)
   response.json(person)
-
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Phonebook server running on ${PORT}`)
 })

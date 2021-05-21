@@ -1,4 +1,4 @@
-### Post peroson
+### Post person
 POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
@@ -13,5 +13,21 @@ Content-Type: application/json
 
 {
     "name": "Albert Einstein",
+    "number": "543-123-53"
+}
+
+### Post person with number missing
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
+    "name": "Albert Einstein"
+}
+
+### Post person with name missing
+POST http://localhost:3001/api/persons/
+Content-Type: application/json
+
+{
     "number": "543-123-53"
 }
