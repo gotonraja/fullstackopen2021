@@ -69,7 +69,8 @@ const App = () => {
           }, 5000)
         })
         .catch(error => {
-          setNotificationMessage(`Failed to add ${newPerson.name}`)
+          const errorMsg = error.response.data.error
+          setNotificationMessage(`Failed to add ${newPerson.name}: ${errorMsg}`)
           setNotificationStyle(errorStatusStyle)
           setTimeout(() => {
             setNotificationMessage(null)
